@@ -94,7 +94,8 @@ class TunnelAgent extends Agent {
             socket.destroy();
             return false;
         }
-
+        socket.on("data", () => { /* silence is golden */ });
+        
         socket.once('close', (hadError) => {
             this.debug('closed socket (error: %s)', hadError);
             this.connectedSockets -= 1;
