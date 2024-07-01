@@ -1,3 +1,5 @@
+import { config } from 'dotenv';
+config();
 import log from 'book';
 import Koa from 'koa';
 import tldjs from 'tldjs';
@@ -5,7 +7,9 @@ import Debug from 'debug';
 import http from 'http';
 import { hri } from 'human-readable-ids';
 import Router from 'koa-router';
+import {Contract, JsonRpcProvider, verifyMessage} from 'ethers';
 
+import abi from './abi/network.abi.js';
 import ClientManager from './lib/ClientManager.js';
 
 const debug = Debug('localtunnel:server');
@@ -16,6 +20,12 @@ export default function(opt) {
     const validHosts = (opt.domain) ? [opt.domain] : undefined;
     const myTldjs = tldjs.fromUserSettings({ validHosts });
     const landingPage = opt.landing || 'https://localtunnel.github.io/www/';
+    const networkContract = new Contract(
+        process.env.CONTRACT_ADDRESS,
+        abi,
+        new JsonRpcProvider(process.env.RPC_URL)
+    );
+    const verificationMessage = process.env.SIGNATURE_MESSAGE;
 
     function GetClientIdFromHostname(hostname) {
         return myTldjs.getSubdomain(hostname);
@@ -55,30 +65,30 @@ export default function(opt) {
     app.use(router.allowedMethods());
 
     // root endpoint
-    app.use(async (ctx, next) => {
-        const path = ctx.request.path;
+    // app.use(async (ctx, next) => {
+    //     const path = ctx.request.path;
 
-        // skip anything not on the root path
-        if (path !== '/') {
-            await next();
-            return;
-        }
+    //     // skip anything not on the root path
+    //     if (path !== '/') {
+    //         await next();
+    //         return;
+    //     }
 
-        const isNewClientRequest = ctx.query['new'] !== undefined;
-        if (isNewClientRequest) {
-            const reqId = hri.random();
-            debug('making new client with id %s', reqId);
-            const info = await manager.newClient(reqId);
+    //     const isNewClientRequest = ctx.query['new'] !== undefined;
+    //     if (isNewClientRequest) {
+    //         const reqId = hri.random();
+    //         debug('making new client with id %s', reqId);
+    //         const info = await manager.newClient(reqId);
 
-            const url = schema + '://' + info.id + '.' + ctx.request.host;
-            info.url = url;
-            ctx.body = info;
-            return;
-        }
+    //         const url = schema + '://' + info.id + '.' + ctx.request.host;
+    //         info.url = url;
+    //         ctx.body = info;
+    //         return;
+    //     }
 
-        // no new client request, send to landing page
-        ctx.redirect(landingPage);
-    });
+    //     // no new client request, send to landing page
+    //     ctx.redirect(landingPage);
+    // });
 
     // anything after the / path is a request for a specific client name
     // This is a backwards compat feature
@@ -93,18 +103,29 @@ export default function(opt) {
             return;
         }
 
-        const reqId = parts[1];
-
-        // limit requested hostnames to 63 characters
-        if (! /^(?:[a-z0-9][a-z0-9\-]{4,63}[a-z0-9]|[a-z0-9]{4,63})$/.test(reqId)) {
-            const msg = 'Invalid subdomain. Subdomains must be lowercase and between 4 and 63 alphanumeric characters.';
-            ctx.status = 403;
+        const signedMessage = parts[1];
+        const recoveredAddress = await verifyMessage(verificationMessage, signedMessage);
+        const result = await networkContract.operatorsIndexs(recoveredAddress);
+        if (result < 0n) {
+            const msg = 'Could not verify K3 Registration Message';
+            ctx.status = 201;
             ctx.body = {
                 message: msg,
             };
             return;
         }
 
+        // limit requested hostnames to 63 characters
+        // if (! /^(?:[a-z0-9][a-z0-9\-]{4,63}[a-z0-9]|[a-z0-9]{4,63})$/.test(reqId)) {
+        //     const msg = 'Invalid subdomain. Subdomains must be lowercase and between 4 and 63 alphanumeric characters.';
+        //     ctx.status = 403;
+        //     ctx.body = {
+        //         message: msg,
+        //     };
+        //     return;
+        // }
+
+        const reqId = hri.random();
         debug('making new client with id %s', reqId);
         const info = await manager.newClient(reqId);
 
