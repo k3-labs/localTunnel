@@ -47,6 +47,7 @@ export default function(opt) {
         const stats = client.stats();
         ctx.body = {
             connected_sockets: stats.connectedSockets,
+            remote_ip: stats.remoteIp
         };
     });
 

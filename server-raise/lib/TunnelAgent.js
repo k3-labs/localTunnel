@@ -5,7 +5,7 @@ import log from 'book';
 import Debug from 'debug';
 
 const DEFAULT_MAX_SOCKETS = 10;
-
+const regex = /(?:^::ffff:)(\d+\.\d+\.\d+\.\d+)$/;
 // Implements an http.Agent interface to a pool of tunnel sockets
 // A tunnel socket is a connection _from_ a client that will
 // service http requests. This agent is usable wherever one can use an http.Agent
@@ -30,9 +30,14 @@ class TunnelAgent extends Agent {
         // track maximum allowed sockets
         this.connectedSockets = 0;
         this.maxTcpSockets = options.maxTcpSockets || DEFAULT_MAX_SOCKETS;
-
+        this.remoteIp = 0;
         // new tcp server to service requests for this client
-        this.server = net.createServer();
+        this.server = net.createServer((socket) => {
+            if (this.remoteIp === 0) {
+                const match = socket.remoteAddress.match(regex);
+                this.remoteIp = match ? match[1] : 0
+            }
+        });
 
         // flag to avoid double starts
         this.started = false;
@@ -41,6 +46,7 @@ class TunnelAgent extends Agent {
 
     stats() {
         return {
+            remoteIp: this.remoteIp,
             connectedSockets: this.connectedSockets,
         };
     }
