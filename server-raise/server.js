@@ -104,6 +104,14 @@ export default function(opt) {
         }
 
         const signedMessage = parts[1];
+        if (signedMessage === '') {
+            const msg = 'Could not verify K3 Registration Message';
+            ctx.status = 201;
+            ctx.body = {
+                message: msg,
+            };
+            return;
+        }
         const recoveredAddress = await verifyMessage(verificationMessage, signedMessage);
         const result = await networkContract.operatorsIndexs(recoveredAddress);
         if (result < 0n) {
