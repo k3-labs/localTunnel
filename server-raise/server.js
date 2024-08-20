@@ -2,6 +2,7 @@ import { config } from 'dotenv';
 config();
 import log from 'book';
 import Koa from 'koa';
+import cors from '@koa/cors';
 import tldjs from 'tldjs';
 import Debug from 'debug';
 import http from 'http';
@@ -37,6 +38,11 @@ export default function(opt) {
 
     const app = new Koa();
     const router = new Router();
+
+    // Apply CORS middleware globally
+    app.use(cors({
+        origin: '*'
+    }));
 
     router.get('/api/status', async (ctx, next) => {
         const stats = manager.stats;
