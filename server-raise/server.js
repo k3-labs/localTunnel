@@ -10,7 +10,7 @@ import { hri } from 'human-readable-ids';
 import Router from 'koa-router';
 import {Contract, JsonRpcProvider, verifyMessage} from 'ethers';
 
-import abi from './abi/network.abi.js';
+import abi from './abi/taskCenter.abi.js';
 import ClientManager from './lib/ClientManager.js';
 
 const debug = Debug('localtunnel:server');
@@ -21,7 +21,7 @@ export default function(opt) {
     const validHosts = (opt.domain) ? [opt.domain] : undefined;
     const myTldjs = tldjs.fromUserSettings({ validHosts });
     const landingPage = opt.landing || 'https://localtunnel.github.io/www/';
-    const networkContract = new Contract(
+    const taskCenterContract = new Contract(
         process.env.CONTRACT_ADDRESS,
         abi,
         new JsonRpcProvider(process.env.RPC_URL)
@@ -119,8 +119,14 @@ export default function(opt) {
             return;
         }
         const recoveredAddress = await verifyMessage(verificationMessage, signedMessage);
-        const result = await networkContract.operatorsIndexs(recoveredAddress);
-        if (result < 0n) {
+        let result;
+        try {
+            await taskCenterContract.operatorsIdsByAddress(recoveredAddress);
+            result = true;
+        } catch(e) {
+            result = false;
+        }
+        if (!result) {
             const msg = 'Could not verify K3 Registration Message';
             ctx.status = 201;
             ctx.body = {
