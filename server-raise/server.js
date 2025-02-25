@@ -121,13 +121,13 @@ export default function(opt) {
         const recoveredAddress = await verifyMessage(verificationMessage, signedMessage);
         let result;
         try {
-            await taskCenterContract.operatorsIdsByAddress(recoveredAddress);
+            await taskCenterContract.operatorIdBySignerAddress(recoveredAddress);
             result = true;
         } catch(e) {
             result = false;
         }
         if (!result) {
-            const msg = 'Could not verify K3 Registration Message';
+            const msg = 'Could not verify K3 Kernel Registration Message';
             ctx.status = 201;
             ctx.body = {
                 message: msg,

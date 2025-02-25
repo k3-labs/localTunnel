@@ -1,838 +1,689 @@
 export default [
-  { inputs: [], name: 'AccessControlBadConfirmation', type: 'error' },
+  { "type": "constructor", "inputs": [], "stateMutability": "nonpayable" },
   {
-    inputs: [
-      { internalType: 'address', name: 'account', type: 'address' },
-      { internalType: 'bytes32', name: 'neededRole', type: 'bytes32' },
+    "type": "function",
+    "name": "DEFAULT_ADMIN_ROLE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "K3BLS",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "K3BLS_ROLE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "K3Governance",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "K3_GOVERNANCE_ROLE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "MANAGER_ROLE",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "aggregatorRewardFee",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "attesterRewardFee",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "getRoleAdmin",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" }
     ],
-    name: 'AccessControlUnauthorizedAccount',
-    type: 'error',
-  },
-  { inputs: [], name: 'ECDSAInvalidSignature', type: 'error' },
-  {
-    inputs: [{ internalType: 'uint256', name: 'length', type: 'uint256' }],
-    name: 'ECDSAInvalidSignatureLength',
-    type: 'error',
+    "outputs": [{ "name": "", "type": "bytes32", "internalType": "bytes32" }],
+    "stateMutability": "view"
   },
   {
-    inputs: [{ internalType: 'bytes32', name: 's', type: 'bytes32' }],
-    name: 'ECDSAInvalidSignatureS',
-    type: 'error',
-  },
-  { inputs: [], name: 'EnforcedPause', type: 'error' },
-  { inputs: [], name: 'ExpectedPause', type: 'error' },
-  { inputs: [], name: 'InactiveAggregator', type: 'error' },
-  { inputs: [], name: 'InactiveTaskPerformer', type: 'error' },
-  { inputs: [], name: 'InvalidBlockExpiry', type: 'error' },
-  { inputs: [], name: 'InvalidInitialization', type: 'error' },
-  { inputs: [], name: 'InvalidOperatorId', type: 'error' },
-  { inputs: [], name: 'InvalidOperatorsForPayment', type: 'error' },
-  { inputs: [], name: 'InvalidPaymentClaim', type: 'error' },
-  { inputs: [], name: 'InvalidPerformerSignature', type: 'error' },
-  { inputs: [], name: 'InvalidTaskDefinition', type: 'error' },
-  { inputs: [], name: 'MessageAlreadySigned', type: 'error' },
-  { inputs: [], name: 'NotInitializing', type: 'error' },
-  { inputs: [], name: 'OperatorNotRegistered', type: 'error' },
-  { inputs: [], name: 'PaymentClaimed', type: 'error' },
-  { inputs: [], name: 'PaymentReedemed', type: 'error' },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'requestedTaskNumber',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'requestedAmountClaimed',
-        type: 'uint256',
-      },
+    "type": "function",
+    "name": "grantRole",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "account", "type": "address", "internalType": "address" }
     ],
-    name: 'ClearPaymentRejected',
-    type: 'event',
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint64',
-        name: 'version',
-        type: 'uint64',
-      },
+    "type": "function",
+    "name": "hasRole",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "account", "type": "address", "internalType": "address" }
     ],
-    name: 'Initialized',
-    type: 'event',
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
   },
   {
-    anonymous: false,
-    inputs: [
+    "type": "function",
+    "name": "initialize",
+    "inputs": [
+      { "name": "_k3BLS", "type": "address", "internalType": "address" },
       {
-        indexed: false,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
+        "name": "_k3Governance",
+        "type": "address",
+        "internalType": "address"
       },
       {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'shares',
-        type: 'uint256',
-      },
+        "name": "_contractManager",
+        "type": "address",
+        "internalType": "address"
+      }
     ],
-    name: 'OperatorRegisteredToNetwork',
-    type: 'event',
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'shares',
-        type: 'uint256',
-      },
+    "type": "function",
+    "name": "numOfActiveOperators",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "numOfTotalOperators",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "operatorAddressBySignerAddress",
+    "inputs": [
+      { "name": "_signer", "type": "address", "internalType": "address" }
     ],
-    name: 'OperatorSharesModified',
-    type: 'event',
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'operatorId',
-        type: 'uint256',
-      },
+    "type": "function",
+    "name": "operatorIdByAddress",
+    "inputs": [
+      { "name": "_operator", "type": "address", "internalType": "address" }
     ],
-    name: 'OperatorUnregisteredFromNetwork',
-    type: 'event',
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
+    "type": "function",
+    "name": "operatorIdBySignerAddress",
+    "inputs": [
+      { "name": "_signer", "type": "address", "internalType": "address" }
     ],
-    name: 'Paused',
-    type: 'event',
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'lastPaidTaskNumber',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'feeToClaim',
-        type: 'uint256',
-      },
+    "type": "function",
+    "name": "operatorRewards",
+    "inputs": [
+      { "name": "_operatorId", "type": "uint256", "internalType": "uint256" }
     ],
-    name: 'PaymentRequested',
-    type: 'event',
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
   },
   {
-    anonymous: false,
-    inputs: [
-      {
-        components: [
-          { internalType: 'address', name: 'operator', type: 'address' },
-          { internalType: 'uint256', name: 'feeToClaim', type: 'uint256' },
-        ],
-        indexed: false,
-        internalType: 'struct IAttestationCenter.PaymentRequestMessage[]',
-        name: 'operators',
-        type: 'tuple[]',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'lastPaidTaskNumber',
-        type: 'uint256',
-      },
-    ],
-    name: 'PaymentsRequested',
-    type: 'event',
+    "type": "function",
+    "name": "performerRewardFee",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
   },
   {
-    anonymous: false,
-    inputs: [
+    "type": "function",
+    "name": "registerOperator",
+    "inputs": [
+      { "name": "operator", "type": "address", "internalType": "address" },
+      { "name": "signer", "type": "address", "internalType": "address" },
       {
-        indexed: true,
-        internalType: 'uint256',
-        name: '_operatorId',
-        type: 'uint256',
+        "name": "_blsKey",
+        "type": "uint256[4]",
+        "internalType": "uint256[4]"
       },
       {
-        indexed: false,
-        internalType: 'uint256',
-        name: '_baseRewardFeeForOperator',
-        type: 'uint256',
-      },
-      {
-        indexed: true,
-        internalType: 'uint32',
-        name: '_taskNumber',
-        type: 'uint32',
-      },
-    ],
-    name: 'RewardAccumulated',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: 'bytes32', name: 'role', type: 'bytes32' },
-      {
-        indexed: true,
-        internalType: 'bytes32',
-        name: 'previousAdminRole',
-        type: 'bytes32',
-      },
-      {
-        indexed: true,
-        internalType: 'bytes32',
-        name: 'newAdminRole',
-        type: 'bytes32',
-      },
-    ],
-    name: 'RoleAdminChanged',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: 'bytes32', name: 'role', type: 'bytes32' },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'sender',
-        type: 'address',
-      },
-    ],
-    name: 'RoleGranted',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      { indexed: true, internalType: 'bytes32', name: 'role', type: 'bytes32' },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-      {
-        indexed: true,
-        internalType: 'address',
-        name: 'sender',
-        type: 'address',
-      },
-    ],
-    name: 'RoleRevoked',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'newAvsGovernanceMultisig',
-        type: 'address',
-      },
-    ],
-    name: 'SetAvsGovernanceMultisig',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'avsLogic',
-        type: 'address',
-      },
-    ],
-    name: 'SetAvsLogic',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'feeCalculator',
-        type: 'address',
-      },
-    ],
-    name: 'SetFeeCalculator',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'newMessageHandler',
-        type: 'address',
-      },
-    ],
-    name: 'SetMessageHandler',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'obls',
-        type: 'address',
-      },
-    ],
-    name: 'SetObls',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'uint16',
-        name: 'taskDefinitionId',
-        type: 'uint16',
-      },
-      { indexed: false, internalType: 'string', name: 'name', type: 'string' },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'blockExpiry',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'baseRewardFeeForAttesters',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'baseRewardFeeForPerformer',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'baseRewardFeeForAggregator',
-        type: 'uint256',
-      },
-      {
-        indexed: false,
-        internalType: 'uint256',
-        name: 'disputePeriodBlocks',
-        type: 'uint256',
-      },
-    ],
-    name: 'TaskDefinitionCreated',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint32',
-        name: 'taskNumber',
-        type: 'uint32',
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'proofOfTask',
-        type: 'string',
-      },
-      { indexed: false, internalType: 'bytes', name: 'data', type: 'bytes' },
-      {
-        indexed: false,
-        internalType: 'uint16',
-        name: 'taskDefinitionId',
-        type: 'uint16',
-      },
-    ],
-    name: 'TaskRejected',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'operator',
-        type: 'address',
-      },
-      {
-        indexed: false,
-        internalType: 'uint32',
-        name: 'taskNumber',
-        type: 'uint32',
-      },
-      {
-        indexed: false,
-        internalType: 'string',
-        name: 'proofOfTask',
-        type: 'string',
-      },
-      { indexed: false, internalType: 'bytes', name: 'data', type: 'bytes' },
-      {
-        indexed: false,
-        internalType: 'uint16',
-        name: 'taskDefinitionId',
-        type: 'uint16',
-      },
-    ],
-    name: 'TaskSubmited',
-    type: 'event',
-  },
-  {
-    anonymous: false,
-    inputs: [
-      {
-        indexed: false,
-        internalType: 'address',
-        name: 'account',
-        type: 'address',
-      },
-    ],
-    name: 'Unpaused',
-    type: 'event',
-  },
-  {
-    inputs: [],
-    name: 'DEFAULT_ADMIN_ROLE',
-    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'avsLogic',
-    outputs: [
-      { internalType: 'contract IAvsLogic', name: '', type: 'address' },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'baseRewardFee',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      {
-        components: [
-          { internalType: 'address', name: 'operator', type: 'address' },
-          { internalType: 'uint256', name: 'feeToClaim', type: 'uint256' },
-        ],
-        internalType: 'struct IAttestationCenter.PaymentRequestMessage[]',
-        name: '_operators',
-        type: 'tuple[]',
-      },
-      { internalType: 'uint256', name: '_paidTaskNumber', type: 'uint256' },
-    ],
-    name: 'clearBatchPayment',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: '_operator', type: 'address' },
-      { internalType: 'uint256', name: '_lastPaidTaskNumber', type: 'uint256' },
-      { internalType: 'uint256', name: '_amountClaimed', type: 'uint256' },
-    ],
-    name: 'clearPayment',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'string', name: '_name', type: 'string' },
-      { internalType: 'uint256', name: '_blockExpiry', type: 'uint256' },
-      {
-        internalType: 'uint256',
-        name: '_baseRewardFeeForAttesters',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_baseRewardFeeForPerformer',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_baseRewardFeeForAggregator',
-        type: 'uint256',
-      },
-      {
-        internalType: 'uint256',
-        name: '_disputePeriodBlocks',
-        type: 'uint256',
-      },
-    ],
-    name: 'createNewTaskDefinition',
-    outputs: [{ internalType: 'uint16', name: '_id', type: 'uint16' }],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: '_operatorId', type: 'uint256' }],
-    name: 'getOperatorPaymentDetail',
-    outputs: [
-      {
-        components: [
-          { internalType: 'address', name: 'operator', type: 'address' },
+        "name": "_blsRegistrationSignature",
+        "type": "tuple",
+        "internalType": "struct BLSAuthLibrary.Signature",
+        "components": [
           {
-            internalType: 'uint256',
-            name: 'lastPaidTaskNumber',
-            type: 'uint256',
-          },
-          { internalType: 'uint256', name: 'feeToClaim', type: 'uint256' },
+            "name": "signature",
+            "type": "uint256[2]",
+            "internalType": "uint256[2]"
+          }
+        ]
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "renounceRole",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      {
+        "name": "callerConfirmation",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "revokeRole",
+    "inputs": [
+      { "name": "role", "type": "bytes32", "internalType": "bytes32" },
+      { "name": "account", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setContractManager",
+    "inputs": [
+      {
+        "name": "_newContractManager",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setK3BLSAddress",
+    "inputs": [
+      { "name": "_k3BLS", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setK3GovernanceAddress",
+    "inputs": [
+      {
+        "name": "_k3Governance",
+        "type": "address",
+        "internalType": "address"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "setRewardFees",
+    "inputs": [
+      {
+        "name": "_aggregatorRewardFee",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "_performerRewardFee",
+        "type": "uint256",
+        "internalType": "uint256"
+      },
+      {
+        "name": "_attesterRewardFee",
+        "type": "uint256",
+        "internalType": "uint256"
+      }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
+  },
+  {
+    "type": "function",
+    "name": "signerAddressByOperatorAddress",
+    "inputs": [
+      { "name": "_operator", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [{ "name": "", "type": "address", "internalType": "address" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "submitTask",
+    "inputs": [
+      {
+        "name": "_taskInfo",
+        "type": "tuple",
+        "internalType": "struct IAttestationCenter.TaskInfo",
+        "components": [
           {
-            internalType: 'enum IAttestationCenter.PaymentStatus',
-            name: 'paymentStatus',
-            type: 'uint8',
+            "name": "proofOfTask",
+            "type": "string",
+            "internalType": "string"
           },
-        ],
-        internalType: 'struct IAttestationCenter.PaymentDetails',
-        name: '',
-        type: 'tuple',
+          { "name": "data", "type": "bytes", "internalType": "bytes" },
+          {
+            "name": "taskPerformer",
+            "type": "address",
+            "internalType": "address"
+          }
+        ]
       },
-    ],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'address', name: '_operator', type: 'address' }],
-    name: 'getOperatorShares',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'bytes32', name: 'role', type: 'bytes32' }],
-    name: 'getRoleAdmin',
-    outputs: [{ internalType: 'bytes32', name: '', type: 'bytes32' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
-      { internalType: 'address', name: 'account', type: 'address' },
-    ],
-    name: 'grantRole',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
-      { internalType: 'address', name: 'account', type: 'address' },
-    ],
-    name: 'hasRole',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
+      { "name": "_isApproved", "type": "bool", "internalType": "bool" },
+      { "name": "_tpSignature", "type": "bytes", "internalType": "bytes" },
       {
-        internalType: 'address',
-        name: '_avsGovernanceMultisigOwner',
-        type: 'address',
+        "name": "_taSignature",
+        "type": "uint256[2]",
+        "internalType": "uint256[2]"
       },
-      { internalType: 'address', name: '_operationsMultisig', type: 'address' },
-      { internalType: 'address', name: '_communityMultisig', type: 'address' },
-      { internalType: 'address', name: '_messageHandler', type: 'address' },
-      { internalType: 'address', name: '_obls', type: 'address' },
-    ],
-    name: 'initialize',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'uint256', name: '_operatorId', type: 'uint256' },
-      { internalType: 'uint256', name: '_numOfShares', type: 'uint256' },
-    ],
-    name: 'modifyNumOfShares',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'numOfActiveOperators',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'numOfOperators',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'numOfTotalOperators',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'obls',
-    outputs: [{ internalType: 'contract IOBLS', name: '', type: 'address' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'address', name: '_operator', type: 'address' }],
-    name: 'operatorsIdsByAddress',
-    outputs: [{ internalType: 'uint256', name: '', type: 'uint256' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'pause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'paused',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: '_operator', type: 'address' },
-      { internalType: 'uint256', name: '_numOfShares', type: 'uint256' },
-      { internalType: 'uint256[4]', name: '_blsKey', type: 'uint256[4]' },
-    ],
-    name: 'registerToNetwork',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
-      { internalType: 'address', name: 'callerConfirmation', type: 'address' },
-    ],
-    name: 'renounceRole',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [],
-    name: 'requestBatchPayment',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'uint256', name: '_operatorId', type: 'uint256' }],
-    name: 'requestPayment',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'bytes32', name: 'role', type: 'bytes32' },
-      { internalType: 'address', name: 'account', type: 'address' },
-    ],
-    name: 'revokeRole',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
       {
-        internalType: 'contract IAvsLogic',
-        name: '_avsLogic',
-        type: 'address',
-      },
+        "name": "_attesterIds",
+        "type": "uint256[]",
+        "internalType": "uint256[]"
+      }
     ],
-    name: 'setAvsLogic',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    inputs: [
+    "type": "function",
+    "name": "supportsInterface",
+    "inputs": [
+      { "name": "interfaceId", "type": "bytes4", "internalType": "bytes4" }
+    ],
+    "outputs": [{ "name": "", "type": "bool", "internalType": "bool" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "taskNumber",
+    "inputs": [],
+    "outputs": [{ "name": "", "type": "uint256", "internalType": "uint256" }],
+    "stateMutability": "view"
+  },
+  {
+    "type": "function",
+    "name": "updateOperatorBlsKey",
+    "inputs": [
       {
-        internalType: 'contract IFeeCalculator',
-        name: '_feeCalculator',
-        type: 'address',
+        "name": "_blsKey",
+        "type": "uint256[4]",
+        "internalType": "uint256[4]"
       },
-    ],
-    name: 'setFeeCalculator',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [{ internalType: 'address', name: '_obls', type: 'address' }],
-    name: 'setObls',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
-      { internalType: 'address', name: '_oblsSharesSyncer', type: 'address' },
-    ],
-    name: 'setOblsSharesSyncer',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
-  },
-  {
-    inputs: [
       {
-        components: [
-          { internalType: 'string', name: 'proofOfTask', type: 'string' },
-          { internalType: 'bytes', name: 'data', type: 'bytes' },
-          { internalType: 'address', name: 'taskPerformer', type: 'address' },
-          { internalType: 'uint16', name: 'taskDefinitionId', type: 'uint16' },
-        ],
-        internalType: 'struct IAttestationCenter.TaskInfo',
-        name: '_taskInfo',
-        type: 'tuple',
-      },
-      { internalType: 'bool', name: '_isApproved', type: 'bool' },
-      { internalType: 'bytes', name: '_tpSignature', type: 'bytes' },
-      { internalType: 'uint256[2]', name: '_taSignature', type: 'uint256[2]' },
-      { internalType: 'uint256[]', name: '_attestersIds', type: 'uint256[]' },
+        "name": "_blsSignature",
+        "type": "tuple",
+        "internalType": "struct BLSAuthLibrary.Signature",
+        "components": [
+          {
+            "name": "signature",
+            "type": "uint256[2]",
+            "internalType": "uint256[2]"
+          }
+        ]
+      }
     ],
-    name: 'submitTask',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    inputs: [{ internalType: 'bytes4', name: 'interfaceId', type: 'bytes4' }],
-    name: 'supportsInterface',
-    outputs: [{ internalType: 'bool', name: '', type: 'bool' }],
-    stateMutability: 'view',
-    type: 'function',
+    "type": "function",
+    "name": "updateSignerAddress",
+    "inputs": [
+      { "name": "_newSigner", "type": "address", "internalType": "address" }
+    ],
+    "outputs": [],
+    "stateMutability": "nonpayable"
   },
   {
-    inputs: [],
-    name: 'taskNumber',
-    outputs: [{ internalType: 'uint32', name: '', type: 'uint32' }],
-    stateMutability: 'view',
-    type: 'function',
-  },
-  {
-    inputs: [
+    "type": "event",
+    "name": "Initialized",
+    "inputs": [
       {
-        internalType: 'address',
-        name: '_newAvsGovernanceMultisig',
-        type: 'address',
+        "name": "version",
+        "type": "uint64",
+        "indexed": false,
+        "internalType": "uint64"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "K3BLSUpdated",
+    "inputs": [
+      {
+        "name": "k3BLS",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "K3GovernanceUpdated",
+    "inputs": [
+      {
+        "name": "k3Governance",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "OperatorBlsKeyUpdated",
+    "inputs": [
+      {
+        "name": "_operator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
       },
+      {
+        "name": "_blsKey",
+        "type": "uint256[4]",
+        "indexed": false,
+        "internalType": "uint256[4]"
+      }
     ],
-    name: 'transferAvsGovernanceMultisig',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "anonymous": false
   },
   {
-    inputs: [
-      { internalType: 'address', name: '_newMessageHandler', type: 'address' },
+    "type": "event",
+    "name": "OperatorSignerAddressUpdated",
+    "inputs": [
+      {
+        "name": "_operator",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "_signer",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
     ],
-    name: 'transferMessageHandler',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "anonymous": false
   },
   {
-    inputs: [{ internalType: 'address', name: '_operator', type: 'address' }],
-    name: 'unRegisterOperatorFromNetwork',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "type": "event",
+    "name": "RewardAccumulated",
+    "inputs": [
+      {
+        "name": "_operatorId",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      },
+      {
+        "name": "_reward",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "_taskNumber",
+        "type": "uint256",
+        "indexed": true,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
   },
   {
-    inputs: [],
-    name: 'unpause',
-    outputs: [],
-    stateMutability: 'nonpayable',
-    type: 'function',
+    "type": "event",
+    "name": "RewardFeesUpdated",
+    "inputs": [
+      {
+        "name": "aggregatorReward",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "performerReward",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "attesterReward",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      }
+    ],
+    "anonymous": false
   },
+  {
+    "type": "event",
+    "name": "RoleAdminChanged",
+    "inputs": [
+      {
+        "name": "role",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "previousAdminRole",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "newAdminRole",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RoleGranted",
+    "inputs": [
+      {
+        "name": "role",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "sender",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "RoleRevoked",
+    "inputs": [
+      {
+        "name": "role",
+        "type": "bytes32",
+        "indexed": true,
+        "internalType": "bytes32"
+      },
+      {
+        "name": "account",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      },
+      {
+        "name": "sender",
+        "type": "address",
+        "indexed": true,
+        "internalType": "address"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TaskRejected",
+    "inputs": [
+      {
+        "name": "operator",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "performer",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "taskNumber",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "proofOfTask",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "data",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  },
+  {
+    "type": "event",
+    "name": "TaskSubmitted",
+    "inputs": [
+      {
+        "name": "operator",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "performer",
+        "type": "address",
+        "indexed": false,
+        "internalType": "address"
+      },
+      {
+        "name": "taskNumber",
+        "type": "uint256",
+        "indexed": false,
+        "internalType": "uint256"
+      },
+      {
+        "name": "proofOfTask",
+        "type": "string",
+        "indexed": false,
+        "internalType": "string"
+      },
+      {
+        "name": "data",
+        "type": "bytes",
+        "indexed": false,
+        "internalType": "bytes"
+      }
+    ],
+    "anonymous": false
+  },
+  { "type": "error", "name": "AccessControlBadConfirmation", "inputs": [] },
+  {
+    "type": "error",
+    "name": "AccessControlUnauthorizedAccount",
+    "inputs": [
+      { "name": "account", "type": "address", "internalType": "address" },
+      { "name": "neededRole", "type": "bytes32", "internalType": "bytes32" }
+    ]
+  },
+  { "type": "error", "name": "ECDSAInvalidSignature", "inputs": [] },
+  {
+    "type": "error",
+    "name": "ECDSAInvalidSignatureLength",
+    "inputs": [
+      { "name": "length", "type": "uint256", "internalType": "uint256" }
+    ]
+  },
+  {
+    "type": "error",
+    "name": "ECDSAInvalidSignatureS",
+    "inputs": [{ "name": "s", "type": "bytes32", "internalType": "bytes32" }]
+  },
+  { "type": "error", "name": "InactiveAggregator", "inputs": [] },
+  { "type": "error", "name": "InactiveTaskPerformer", "inputs": [] },
+  { "type": "error", "name": "InvalidInitialization", "inputs": [] },
+  { "type": "error", "name": "InvalidPerformerSignature", "inputs": [] },
+  {
+    "type": "error",
+    "name": "InvalidSignerAddress",
+    "inputs": [
+      { "name": "signer", "type": "address", "internalType": "address" }
+    ]
+  },
+  { "type": "error", "name": "MessageAlreadySigned", "inputs": [] },
+  { "type": "error", "name": "NotInitializing", "inputs": [] },
+  {
+    "type": "error",
+    "name": "OperatorNotRegistered",
+    "inputs": [
+      { "name": "operator", "type": "address", "internalType": "address" }
+    ]
+  },
+  { "type": "error", "name": "ReentrancyGuardReentrantCall", "inputs": [] }
 ];
