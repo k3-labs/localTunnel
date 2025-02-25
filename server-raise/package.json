@@ -32,8 +32,8 @@
   },
   "scripts": {
     "test": "mocha --check-leaks --require esm './**/*.test.js'",
-    "start": "node ./bin/server.js --secure  --port 3005 --domain performers.k3-labs.com/kernel",
-    "start-prod": "node ./bin/server.js --secure  --port 3005 --domain operators.k3-labs.com/kernel",
+    "start": "node ./bin/server.js --secure  --port 3005 --domain kernel.performers.k3-labs.com",
+    "start-prod": "node ./bin/server.js --secure  --port 3005 --domain kernel.operators.k3-labs.com",
     "dev": "node-dev bin/server --port 3005"
   }
 }
