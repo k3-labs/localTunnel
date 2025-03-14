@@ -8,9 +8,13 @@ import Debug from 'debug';
 import http from 'http';
 import { hri } from 'human-readable-ids';
 import Router from 'koa-router';
-import {Contract, JsonRpcProvider, verifyMessage} from 'ethers';
+import { AbiCoder, Contract, JsonRpcProvider, keccak256 } from 'ethers';
 
-import abi from './abi/taskCenter.abi.js';
+import attestationCenterAbi from './abi/attestation-center.abi.js';
+import oblsAbi from './abi/obls.abi.js';
+import { hashToPoint, init, parseG1, parseG2, operatorLocalTunnelDomain, verifyRaw } from "./mcl/mcl.js";
+
+
 import ClientManager from './lib/ClientManager.js';
 
 const debug = Debug('localtunnel:server');
@@ -21,16 +25,30 @@ export default function(opt) {
     const validHosts = (opt.domain) ? [opt.domain] : undefined;
     const myTldjs = tldjs.fromUserSettings({ validHosts });
     const landingPage = opt.landing || 'https://localtunnel.github.io/www/';
-    const taskCenterContract = new Contract(
-        process.env.CONTRACT_ADDRESS,
-        abi,
+
+    const attestationCenterContract = new Contract(
+        process.env.ATTESTATION_CONTRACT_ADDRESS,
+        attestationCenterAbi,
         new JsonRpcProvider(process.env.RPC_URL)
     );
+
+    const oblsContract = new Contract(
+        process.env.OBLS_CONTRACT_ADDRESS,
+        oblsAbi,
+        new JsonRpcProvider(process.env.RPC_URL)
+    )
+
     const verificationMessage = process.env.SIGNATURE_MESSAGE;
+
+    const verificationMessageHash = keccak256(
+        AbiCoder.defaultAbiCoder().encode(["string"], [verificationMessage]),
+      );
 
     function GetClientIdFromHostname(hostname) {
         return myTldjs.getSubdomain(hostname);
     }
+
+    init();
 
     const manager = new ClientManager(opt);
 
@@ -109,29 +127,28 @@ export default function(opt) {
             return;
         }
 
-        const signedMessage = parts[1];
-        if (signedMessage === '') {
-            const msg = 'Could not verify K3 Registration Message';
-            ctx.status = 201;
-            ctx.body = {
-                message: msg,
-            };
-            return;
-        }
-        const recoveredAddress = await verifyMessage(verificationMessage, signedMessage);
-        let result;
+        const data = parts[1];
         try {
-            await taskCenterContract.operatorsIdsByAddress(recoveredAddress);
-            result = true;
+            const {signedLocaltunnelMessage, operatorAddress} = JSON.parse(decodeURIComponent(data));
+
+            if (!signedLocaltunnelMessage || !operatorAddress) {
+                sendErrorResponse(ctx);
+                return;
+            }
+            const operatorIndex = await attestationCenterContract.operatorsIdsByAddress(operatorAddress);
+
+            const operatorBlsPubKey = await oblsContract.getOperatorBLSPubKey(operatorIndex);
+
+            const blsPubKeyG2 = parseG2(operatorBlsPubKey);
+            const messagePoint = hashToPoint(verificationMessageHash, operatorLocalTunnelDomain());
+            const isVerified = verifyRaw(parseG1(signedLocaltunnelMessage), blsPubKeyG2, messagePoint);
+
+            if (!isVerified) {
+                sendErrorResponse(ctx);
+                return;
+            }
         } catch(e) {
-            result = false;
-        }
-        if (!result) {
-            const msg = 'Could not verify K3 Registration Message';
-            ctx.status = 201;
-            ctx.body = {
-                message: msg,
-            };
+            sendErrorResponse(ctx);
             return;
         }
 
@@ -208,3 +225,11 @@ export default function(opt) {
 
     return server;
 };
+
+function sendErrorResponse(ctx) {
+    const msg = 'Could not verify K3 Localtunnel BLS Verification Message';
+    ctx.status = 201;
+    ctx.body = {
+        message: msg,
+    };
+}
