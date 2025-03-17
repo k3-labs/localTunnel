@@ -227,7 +227,7 @@ export default function(opt) {
 };
 
 function sendErrorResponse(ctx) {
-    const msg = 'Could not verify K3 Localtunnel BLS Verification Message';
+    const msg = 'Could not verify K3 Registration Message';
     ctx.status = 201;
     ctx.body = {
         message: msg,
